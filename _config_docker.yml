@@ -1,1 +1,3 @@
+# Root-relative URLs keep previews independent of the public website.
 url: ""
+baseurl: ""

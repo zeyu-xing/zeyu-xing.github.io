@@ -6,8 +6,14 @@ on:
   push:
     branches: ["master"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Publishing is paused by default; ordinary pushes only check the build.
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish this website publicly on GitHub Pages'
+        type: boolean
+        required: true
+        default: false
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -46,13 +52,20 @@ jobs:
         run: |
           uglifyjs assets/js/plugins/jquery.greedy-navigation.js assets/js/_main.js assets/js/theme.js -c -m -o assets/js/main.min.js
       - name: Configure GitHub Pages
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
         id: pages
         uses: actions/configure-pages@v6.0.0
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: |
+          if [ "$PUBLISH_SITE" = "true" ]; then
+            bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          else
+            JEKYLL_ENV=preview bundle exec jekyll build --config _config.yml,_config_docker.yml --baseurl ""
+          fi
         env:
           JEKYLL_ENV: production
+          PUBLISH_SITE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v5.0.0
         with:
@@ -60,6 +73,7 @@ jobs:
 
   # Deployment job
   deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
