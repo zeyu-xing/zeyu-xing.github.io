@@ -12,7 +12,8 @@ jobs:
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
-    if: "contains(github.event.pull_request.body, 'by deleting this comment block') || github.event.pull_request.body == ''"
+    # This moderation rule belongs to the upstream template, not personal sites.
+    if: "github.repository == 'academicpages/academicpages.github.io' && (contains(github.event.pull_request.body, 'by deleting this comment block') || github.event.pull_request.body == '')"
     steps:
       - uses: actions-ecosystem/action-add-labels@v1
         with:
