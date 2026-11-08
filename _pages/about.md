@@ -16,7 +16,7 @@ redirect_from:
 </div>
 
 <div class="biography" markdown="1">
-I received my Ph.D. in Economics from the School of Economics, Peking University, in 2026, and my bachelor's degree in Economics from Yuanpei College, Peking University, in 2021.
+I received my Ph.D. in Economics in 2026 and my bachelor's degree in Economics in 2021, both from Peking University.
 
 My research interests are applied microeconomic theory, contest theory, information economics, and behavioral economics.
 </div>
