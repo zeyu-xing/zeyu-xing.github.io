@@ -6,7 +6,7 @@ on:
   push:
     branches: ["master"]
 
-  # Pushes publish updates; manual runs can also publish with the input below.
+  # Publishing is paused; ordinary pushes only build and check private previews.
   workflow_dispatch:
     inputs:
       publish:
@@ -52,7 +52,7 @@ jobs:
         run: |
           uglifyjs assets/js/plugins/jquery.greedy-navigation.js assets/js/_main.js assets/js/theme.js -c -m -o assets/js/main.min.js
       - name: Configure GitHub Pages
-        if: github.event_name == 'push' || inputs.publish
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
         id: pages
         uses: actions/configure-pages@v6.0.0
       - name: Build with Jekyll
@@ -65,7 +65,7 @@ jobs:
           fi
         env:
           JEKYLL_ENV: production
-          PUBLISH_SITE: ${{ github.event_name == 'push' || inputs.publish }}
+          PUBLISH_SITE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
       - name: Check desktop and mobile layouts
         if: github.event_name == 'push'
         run: python scripts/verify-layout.py
@@ -83,7 +83,7 @@ jobs:
 
   # Deployment job
   deploy:
-    if: github.event_name == 'push' || inputs.publish
+    if: github.event_name == 'workflow_dispatch' && inputs.publish
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
