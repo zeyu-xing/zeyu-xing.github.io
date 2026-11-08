@@ -21,7 +21,7 @@
 <meta name="description" content="{{ seo_description }}">
 
 {% comment %} ===== Social share image =====
-Priority: page.header.image > page.header.overlay_image > site.og_image > default /images/og-image.png.
+Priority: page.header.image > page.header.overlay_image > site.og_image. No preview image is emitted until one is supplied.
 Absolute URLs (containing "://") are used as-is; relative paths are resolved under /images/ and prepended
 with base_path so the result is always absolute.
 {% endcomment %}
@@ -41,7 +41,7 @@ with base_path so the result is always absolute.
 {% elsif site.og_image %}
   {% assign seo_image_abs = site.og_image | prepend: "/images/" | prepend: base_path %}
 {% else %}
-  {% assign seo_image_abs = "/images/og-image.png" | prepend: base_path %}
+  {% assign seo_image_abs = false %}
 {% endif %}
 
 {% assign seo_author = page.author | default: page.author[0] | default: site.author[0] %}

@@ -12,7 +12,7 @@ site_theme               : "default" # The available themes options are "default
 title                    : "Zeyu Xing"
 title_separator          : "-"
 name                     : &name "Zeyu Xing"
-description              : &description "Zeyu Xing's academic website."
+description              : &description "Zeyu Xing, Assistant Research Fellow at Chongqing University. Applied microeconomic theory, contest theory, and information economics."
 url                      : "https://zeyu-xing.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "zeyu-xing/zeyu-xing.github.io"
@@ -22,14 +22,19 @@ repository               : "zeyu-xing/zeyu-xing.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           :
   name             : "Zeyu Xing"
   pronouns         : # example: "she/her"  
-  bio              :
-  location         :
-  employer         :
+  bio              : "Assistant Research Fellow"
+  location         : "Chongqing, China"
+  employer         : "Chongqing University"
+  department       : "School of Economics and Business Administration"
+  department_url   : "https://en-seba.cqu.edu.cn/"
   uri              : # URL
   email            :
+  email_display    : "xingzeyu [at] cqu [dot] edu [dot] cn"
+  email_user       : "eGluZ3pleXU="
+  email_domain     : "Y3F1LmVkdS5jbg=="
 
   # Academic websites
   academia         : # URL
@@ -124,7 +129,7 @@ staticman:
       options:
         format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
 atom_feed:
-  hide                   : false     # change to true to hide the RSS feed in the footer
+  hide                   : true
   path                   : # blank (default) uses feed.xml
 
 
@@ -193,6 +198,7 @@ exclude:
   - Rakefile
   - README
   - scripts
+  - talkmap
   - talkmap.ipynb
   - talkmap_out.ipynb
   - talkmap.py
