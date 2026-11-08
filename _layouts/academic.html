@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ site.locale | default: 'en-US' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% unless page.home %}{{ page.title | escape }} | {% endunless %}{{ site.title | escape }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  {% if site.url and site.url != '' %}<link rel="canonical" href="{{ page.url | absolute_url }}">{% endif %}
+  {% unless jekyll.environment == 'production' %}<meta name="robots" content="noindex, nofollow">{% endunless %}
+  <link rel="icon" type="image/svg+xml" href="{{ '/images/favicon.svg' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/academic.css' | relative_url }}">
+  <script defer src="{{ '/assets/js/contact.js' | relative_url }}"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="academic-shell">
+    <header class="site-header">
+      {% if page.home %}<h1 class="site-name">{% else %}<p class="site-name">{% endif %}
+        <a href="{{ '/' | relative_url }}">{{ site.name }}</a>
+      {% if page.home %}</h1>{% else %}</p>{% endif %}
+      <nav aria-label="Main navigation">
+        <a href="{{ '/' | relative_url }}"{% if page.home %} aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/research/' | relative_url }}"{% if page.url == '/research/' %} aria-current="page"{% endif %}>Research</a>
+      </nav>
+    </header>
+    <main id="content" class="{% if page.home %}home-page{% else %}research-page{% endif %}">
+      {% unless page.home %}<h1 class="page-heading">{{ page.title }}</h1>{% endunless %}
+      {{ content }}
+    </main>
+    <footer class="site-footer">
+      <span>&copy; {{ site.time | date: '%Y' }} {{ site.name }}</span>
+      <a href="https://github.com/academicpages/academicpages.github.io">Academic Pages</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,17 +1,24 @@
 ---
+layout: academic
+title: "Home"
+home: true
 permalink: /
-title: "About Me"
-author_profile: true
-description: "Zeyu Xing is an Assistant Research Fellow at Chongqing University, working on applied microeconomic theory, contest theory, and information economics."
+description: "Zeyu Xing, Assistant Research Fellow at Chongqing University. Applied microeconomic theory, contest theory, and information economics."
 redirect_from:
   - /about/
   - /about.html
 ---
 
-I am an Assistant Research Fellow at the [School of Economics and Business Administration](https://en-seba.cqu.edu.cn/), Chongqing University.
+<div class="home-identity">
+  <p class="position">{{ site.author.bio }}</p>
+  <p class="affiliation"><a href="{{ site.author.department_url }}">{{ site.author.department }}</a><br>Chongqing University</p>
+  {% include academic-contact.html %}
+</div>
 
-My research interests are **applied microeconomic theory, contest theory, and information economics**.
+<div class="biography" markdown="1">
+My research interests are applied microeconomic theory, contest theory, and information economics.
 
 I received my Ph.D. from the School of Economics, Peking University, in 2026, and my bachelor's degree from Yuanpei College, Peking University, in 2021.
+</div>
 
-See my [research page]({{ '/research/' | relative_url }}) for publications and working papers.
+<p class="research-link"><a href="{{ '/research/' | relative_url }}">Publications and working papers</a></p>
