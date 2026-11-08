@@ -7,12 +7,16 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import threading
 import time
 import urllib.request
 
 output = Path(os.environ.get('LAYOUT_PREVIEW_DIR', '/tmp/academic-preview'))
 output.mkdir(parents=True, exist_ok=True)
+preview = output / 'zeyu_xing_homepage_preview.html'
+subprocess.run([sys.executable, 'scripts/create-html-preview.py', '--site', '_site',
+                '--output', str(preview)], check=True)
 
 # The font is a QA dependency only; the public site uses system fonts.
 font_dir = Path.home() / '.local/share/fonts'
@@ -85,6 +89,12 @@ try:
             assert metrics['scrollWidth'] <= width, metrics
             assert metrics['nav'] == ['Home', 'Research'], metrics
             assert not metrics['sidebar'], metrics
+            assert not evaluate('return !!document.querySelector("footer");')
+            if name == 'home':
+                assert evaluate('return document.querySelector(".biography").textContent.includes("behavioral economics");')
+            else:
+                assert not evaluate('return [...document.querySelectorAll("a")].some(a=>a.href.endsWith(".pdf"));')
+                assert evaluate('return document.querySelector(".paper-title a").href;') == 'https://www.sciencedirect.com/science/article/pii/S0165176523001015'
             results.append({'page': name, 'device': device, **metrics})
             page_height = evaluate('return Math.max(document.documentElement.scrollHeight, innerHeight);')
             png = cdp('Page.captureScreenshot', {
@@ -107,8 +117,25 @@ try:
                         break
                     time.sleep(0.1)
                 assert evaluate('return document.querySelector(".email-status").textContent;') == 'Email copied.'
+    # Open the actual exported file, including navigation without a web server.
+    command('/url', {'url': preview.resolve().as_uri()})
+    assert evaluate('return document.querySelector("[data-preview-page=home]").hidden;') is False
+    evaluate('document.querySelector(`nav a[href="#research"]`).click(); return true;')
+    for _ in range(30):
+        if not evaluate('return document.querySelector("[data-preview-page=research]").hidden;'):
+            break
+        time.sleep(0.1)
+    assert evaluate('return document.querySelector("[data-preview-page=home]").hidden;') is True
+    assert evaluate('return document.querySelector("nav a[aria-current]").textContent;') == 'Research'
+    assert evaluate('return document.documentElement.scrollWidth <= innerWidth;')
+    evaluate('document.querySelector(`nav a[href="#home"]`).click(); return true;')
+    for _ in range(30):
+        if not evaluate('return document.querySelector("[data-preview-page=home]").hidden;'):
+            break
+        time.sleep(0.1)
+    assert evaluate('return document.querySelector("[data-preview-page=research]").hidden;') is True
     (output / 'checks.json').write_text(json.dumps(results, indent=2))
-    print(json.dumps({'layout_checks': results, 'email_copy': 'passed'}))
+    print(json.dumps({'layout_checks': results, 'email_copy': 'passed', 'offline_html_navigation': 'passed'}))
 finally:
     if session:
         request('DELETE', '/session/' + session)

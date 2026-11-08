@@ -12,7 +12,7 @@ site_theme               : "default" # The available themes options are "default
 title                    : "Zeyu Xing"
 title_separator          : "-"
 name                     : &name "Zeyu Xing"
-description              : &description "Zeyu Xing, Assistant Research Fellow at Chongqing University. Applied microeconomic theory, contest theory, and information economics."
+description              : &description "Zeyu Xing, Assistant Research Fellow at Chongqing University. Applied microeconomic theory, contest theory, information economics, and behavioral economics."
 url                      : "https://zeyu-xing.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "zeyu-xing/zeyu-xing.github.io"
