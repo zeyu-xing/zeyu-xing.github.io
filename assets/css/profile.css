@@ -1,5 +1,16 @@
 /* Small, content-focused additions to the Academic Pages theme. */
 #main, .masthead__inner-wrap, .page__footer footer { max-width: 1120px; }
+#main {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 56px;
+}
+#main::before, #main::after { display: none; }
+#main > .sidebar {
+  position: static; float: none; width: auto; height: auto;
+  padding-top: 0; margin: 0; overflow: visible;
+}
+#main > .page { float: none; width: auto; min-width: 0; padding: 0; }
 .author-profile .author__content { display: block; padding: 0; }
 .author-profile .author__name {
   margin: 0 0 0.6rem;
@@ -36,6 +47,7 @@
   .page { width: calc(100% - 285px); padding: 0; }
 }
 @media (max-width: 1023px) {
+  #main { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
   .sidebar { margin-top: 0; padding-bottom: 1.4rem; border-bottom: 1px solid var(--global-border-color); }
   .author-profile .profile-affiliation { max-width: 28rem; }
   .page__title { font-size: 1.7rem; }
