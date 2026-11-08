@@ -14,11 +14,9 @@
       <a href="{{ author.department_url }}">{{ author.department }}</a><br />
       {{ author.employer }}
     </p>
-    <p class="profile-location">{{ author.location }}</p>
   </div>
   {% if author.email_display %}
     <div class="profile-contact">
-      <span class="profile-label">Email</span>
       <span class="profile-email">{{ author.email_display }}</span>
       <button type="button" class="copy-email" data-user="{{ author.email_user }}" data-domain="{{ author.email_domain }}">Copy email</button>
       <span class="email-status" role="status" aria-live="polite"></span>
