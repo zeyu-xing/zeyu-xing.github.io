@@ -11,7 +11,7 @@ description: "Publications and working papers by Zeyu Xing."
   <li class="paper">
     <p class="paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S0165176523001015">Optimally biased contests with draws</a></p>
     <p class="paper-authors">with Bo Li and Zenan Wu</p>
-    <p class="paper-venue"><i>Economics Letters</i>, 226 (2023), 111076.</p>
+    <p class="paper-venue"><i>Economics Letters</i>, 2023, 226, 111076.</p>
   </li>
 </ul>
 </section>

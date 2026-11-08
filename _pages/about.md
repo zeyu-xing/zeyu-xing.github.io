@@ -20,5 +20,3 @@ I received my Ph.D. in Economics in 2026 and my bachelor's degree in Economics i
 
 My research interests are applied microeconomic theory, contest theory, information economics, and behavioral economics.
 </div>
-
-<p class="research-link"><a href="{{ '/research/' | relative_url }}">Publications and working papers</a></p>
